@@ -43,20 +43,21 @@
         }
 
         #layer1 .petal {
-            width: 20px;
-            height: 15px;
-            opacity: 0.6;
+            width: 30px;
+            height:30px;
+            opacity: 0.5;
+           
         }
 
         #layer2 .petal {
             width: 60px;
-            height: 20px;
+            height:60px;
             opacity: 0.8;
         }
 
         #layer3 .petal {
             width: 100px;
-            height: 30px;
+            height:100px;
             opacity: 1;
         }
     </style>
@@ -70,9 +71,9 @@
 
     <script>
         const layerConfigs = {
-            layer1: { speed: 0.3, count: 50 },
+            layer1: { speed: 0.3, count: 100 },
             layer2: { speed: 0.5, count: 50 },
-            layer3: { speed: 0.7, count: 50 }
+            layer3: { speed: 0.7, count: 20 }
         };
 
         const petals = {};
@@ -107,9 +108,9 @@
                     petalEl.className = 'petal';
                     petalEl.style.left = petal.x + 'px';
                     petalEl.style.top = petal.baseY + 'px';
-                    petalEl.style.rotate = petal.rotation + 'deg';
+                    petalEl.style.rotate =  petal.rotation + 'deg';
                     petalEl.style.backgroundImage = `url('images/petal${petal.petalNum}.png')`;
-                    // petalEl.style.opacity = (100 - (petal.petalNum-1)*30) +"%";
+                  
                     petal.element = petalEl;
                     layer.appendChild(petalEl);
                 }
@@ -127,8 +128,8 @@
                     const newY = petal.baseY - offset;
 
                     petal.element.style.top = (petal.baseY - offset) + 'px';
-                    petal.rotation = offset*config.speed;
-                    petal.element.style.rotate = petal.rotation + 'deg';
+        
+                    petal.element.style.rotate = petal.rotation + (offset*config.speed) + 'deg';
                 });
             });
 
