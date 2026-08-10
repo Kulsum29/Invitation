@@ -14,7 +14,9 @@
         body {
             font-family: Arial, sans-serif;
             height: 300vh;
-            background-color: beige;
+            background: linear-gradient(rgb(255, 194, 213),rgb(154, 86, 102));
+            background-size: 100vh;
+            background-position: fixed;
         }
 
         .parallax-container {
@@ -43,21 +45,23 @@
         }
 
         #layer1 .petal {
-            width: 1rem;
-            height:1rem;
+            width: 5rem;
+            height:5rem;
             opacity: 0.5;
+            filter: blur(2px);
            
         }
 
         #layer2 .petal {
-            width: 2rem;
-            height:2rem;
+            width: 4rem;
+            height:4rem;
             opacity: 0.8;
+            filter: blur(1px);
         }
 
         #layer3 .petal {
-            width: 3rem;
-            height:3rem;
+            width: 3.5rem;
+            height:3.5rem;
             opacity: 1;
         }
     </style>
@@ -82,7 +86,7 @@
             const x = Math.random() * window.innerWidth;
             const y = Math.random() * window.innerHeight*3;
             const rotation = Math.random() * 360;
-            const petalNum = 1 + Math.floor(Math.random() * 4);
+            const petalNum = 1 + Math.floor(Math.random() * 6);
 
             const petal = {
                 x: x,
@@ -109,7 +113,7 @@
                     petalEl.style.left = petal.x + 'px';
                     petalEl.style.top = petal.baseY + 'px';
                     petalEl.style.rotate =  petal.rotation + 'deg';
-                    petalEl.style.backgroundImage = `url('images/petal${petal.petalNum}.png')`;
+                    petalEl.style.backgroundImage = `url('images/mypetal${petal.petalNum}.png')`;
                   
                     petal.element = petalEl;
                     layer.appendChild(petalEl);
