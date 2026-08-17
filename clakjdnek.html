@@ -150,13 +150,37 @@
     0%, 100%{ transform:translateY(0); }
     50%{ transform:translateY(-8px); }
   }
+
+  .page{
+    width:90vh;
+    display: flex;
+    margin:auto;
+    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    padding:20px 0px;
+    gap:20px;
+  }
+  @keyframes fade-in{
+    0%{ opacity:0%; transform: translateY(20px); }
+    100%{opacity:100%; transform: translateY(0px); }
+  }
+  #bismillah{
+    width:10rem;
+    animation: fade-in 2.3s ease-in-out;
+  }
 </style>
 </head>
 <body>
 
 <div class="progress" id="progress"></div>
 <div id="debug"></div>
-<div class="stage" id="stage"></div>
+<div class="stage" id="stage">
+  <section class="page pg1">
+    
+    <img src="images/basmala2.png" alt="" id="bismillah">
+  </section>
+</div>
 <!-- <div class="hint" style="display: none;">scroll ↕ &nbsp;+&nbsp; tilt phone ↔ / ↕</div> -->
 
 <!-- Permission overlay -->
