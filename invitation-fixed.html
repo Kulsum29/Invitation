@@ -4,12 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Petals — Scroll + Tilt Demo</title>
+<script src="https://kit.fontawesome.com/8c48bfb058.js" crossorigin="anonymous"></script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Libertinus+Math&display=swap');
+  /* @import url('https://fonts.googleapis.com/css2?family=Carattere&display=swap'); */
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+  @font-face {
+    font-family: 'NewIconFont';
+    src: url('New-Icon-Script-Exfont1157.otf') format('opentype');
+  }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{
-    background:#FBF3E2;
+    /* background:#FBF3E2; */
+    /* background: lightpink; */
+    
     overflow-x:hidden;
     font-family:sans-serif;
+    color:#80002f
   }
 
   .stage{
@@ -144,7 +158,7 @@
   .content-section{
     position:relative;
     z-index:2;
-    min-height:300vh;
+    /* min-height:300vh; */
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -161,6 +175,40 @@
     0%{ opacity:0; transform:translateY(20px); }
     100%{ opacity:1; transform:translateY(0); }
   }
+  .content-section section{
+    text-align: center;
+    margin-top: 70px;
+    animation: fade-in 2.3s ease-in-out;
+  
+    font-weight: 400;
+    font-size: 2rem;
+  }
+  .fancy{
+      font-family: "NewIconFont", cursive;
+      font-size: 5rem !important;
+      line-height: 3rem;
+  }
+  .smallfancy{
+    font-size:1.6rem;
+    position:relative;
+    left:2rem;
+    top:-0.5rem;
+    font-weight:900px;
+  }
+  .seriftext{
+    font-family: "Libertinus Math", system-ui;
+  }
+  .serifitalictext{
+    font-family: "Cardo", cursive;
+    font-style: italic;
+    font-size: 3rem;
+    line-height: 2.5rem;
+    position:relative;
+    top:0.5rem;
+  }
+  .arabicfont{
+    font-family: "Amiri", serif;;
+  }
 </style>
 </head>
 <body>
@@ -172,9 +220,65 @@
 <div class="stage" id="stage"></div>
 
 <!-- Scrollable content -->
-<div class="content-section">
-  <img src="images/basmala2.png" alt="" id="bismillah">
+<div class="content-section seriftext">
+  <img src="images/basmala3.png" alt="" id="bismillah">
   <!-- Add your content here -->
+
+
+    <section>
+
+      <span class="seriftext">In Loving Memory of</span><br>
+      <span class="serifitalictext">Late Mr. Mohammed Ali Maniar</span><br>
+      <span class="arabicfont"> اللهم ارحمه</span>
+    </section>
+    <section>
+      <span class="serifitalictext">Mrs. Zubeda Maniar</span><br>
+      <span class="seriftext" style="display:block;margin-top: 0.5rem;">Cordially Invites You to the Walimah of Her Son</span>
+    </section>
+    <section class="fancy">
+      Raihan<br>
+      <span class="smallfancy">&</span> <br>
+      Insha
+    </section>
+    <section>
+      <span class="seriftext">Daughter of</span> <br>
+      <span class="serifitalictext">Mr. Muhammad Ali Durwesh & Mrs. Shaheen Durwesh</span>
+    </section>
+    <section> <span class="arabicfont" style="font-size:3rem">إن شاء الله تعالى</span></section>
+    <div style="display: flex;flex-direction: row; justify-content: center; align-items: center; gap:70px; font-size: 1rem !important;">
+        <section>
+         <i class="fa-regular fa-calendar"></i><br>
+          Tuesday<br>
+          <span>27<sup>th</sup> October 2026<br></span>
+        </section>
+        <section>
+          <i class="fa-solid fa-utensils"></i><br>
+          Dinner<br>
+          After Maghrib
+        </section>
+        <section>
+          <i class="fa-solid fa-location-dot"></i><br>
+          At Islamic Cultural Hall<br>
+          Mota Taiwad, Valsad 396 001
+        </section>
+    </div>
+    
+    
+    <section class="serifitalictext">
+      With Best Compliments from:
+    </section>
+
+<section style="width:auto; text-align: justify; line-height: 3rem; margin:20px auto">
+  Mrs. Habiba Gulam Mohammed Maniar <br>
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Ms. Kulsum Maniar
+</section>
+
+
+
+
+
 </div>
 
 <!-- Permission overlay -->
