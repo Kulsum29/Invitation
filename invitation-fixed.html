@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Petals — Scroll + Tilt Demo</title>
+<title>You're Invited!</title>
 <script src="https://kit.fontawesome.com/8c48bfb058.js" crossorigin="anonymous"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap');
@@ -164,6 +164,7 @@
     align-items:center;
     justify-content:flex-start;
     padding:40px 20px;
+    user-select: none;
   }
 
   #bismillah{
@@ -177,9 +178,8 @@
   }
   .content-section section{
     text-align: center;
-    margin-top: 70px;
     animation: fade-in 2.3s ease-in-out;
-  
+    padding: 0px 10px;
     font-weight: 400;
   
   }
@@ -207,6 +207,27 @@
   .arabicfont{
     font-family: "Amiri", serif;;
   }
+
+  .complements-box{
+    width:auto; 
+    text-align: justify; 
+
+    margin:20px auto;
+    
+  }
+  .info-box{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+
+   
+  }
+ .info-box div{
+  text-align: center;
+    animation: fade-in 2.3s ease-in-out;
+    padding: 0px 10px;
+    font-weight: 400;
+ }
   @media screen and (max-width: 900px){
         .large{
       font-size: 2rem;
@@ -224,6 +245,19 @@
         .smallfancy{
     left:1rem;
     top:-0.3rem;
+        }
+        .info-box{
+          flex-direction: column;
+              gap:10px; 
+        }
+         .info-box div{
+        border: 2px solid #80002f;
+        width:70vw;
+        padding-top:20px;
+        padding-bottom:20px;
+        }
+        .content-section section{
+          margin-top: 30px;
         }
   }
     @media screen and (min-width: 901px){
@@ -243,6 +277,16 @@
         .smallfancy{
               left:2rem;
               top:-0.5rem;
+        }
+        .info-box{
+          flex-direction: row;
+              gap:70px; 
+        }
+        .content-section section{
+          margin-top: 70px;
+        }
+        .complements-box{
+          line-height: 3rem;
         }
   }
 </style>
@@ -280,23 +324,24 @@
       <span class="seriftext">Daughter of</span> <br>
       <span class="serifitalictext large">Mr. Muhammad Ali Durwesh & Mrs. Shaheen Durwesh</span>
     </section>
-    <section> <span class="arabicfont" style="font-size:3rem">إن شاء الله تعالى</span></section>
-    <div style="display: flex;flex-direction: row; justify-content: center; align-items: center; gap:70px; font-size: 1rem !important;">
-        <section>
+    <section> <span class="arabicfont large">إن شاء الله تعالى</span></section>
+    <br>
+    <div class= "info-box">
+        <div>
          <i class="fa-regular fa-calendar"></i><br>
           Tuesday<br>
           <span>27<sup>th</sup> October 2026<br></span>
-        </section>
-        <section>
+        </div>
+        <div>
           <i class="fa-solid fa-utensils"></i><br>
           Dinner<br>
           After Maghrib
-        </section>
-        <section>
+        </div>
+        <div>
           <i class="fa-solid fa-location-dot"></i><br>
           Islamic Cultural Hall<br>
           Mota Taiwad, Valsad 396 001
-        </section>
+        </div>
     </div>
     
     <!-- tessttt -->
@@ -304,11 +349,11 @@
       With Best Compliments from:
     </section>
 
-<section style="width:auto; text-align: justify; line-height: 3rem; margin:20px auto">
+<section class="complements-box">
   Mrs. Habiba Gulam Mohammed Maniar <br>
-&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
-&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
-&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Ms. Kulsum Maniar
+Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
+Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
+Ms. Kulsum Maniar
 </section>
 
 
