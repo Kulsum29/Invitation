@@ -178,6 +178,10 @@
 </div>
 
 <script>
+  console.error = (msg) => {
+  const debugEl = document.getElementById('debug');
+  debugEl.textContent = 'ERROR: ' + msg;
+};
   const PETAL_IMAGES = [
     "images/mypetal1.png",
     "images/mypetal2.png",
