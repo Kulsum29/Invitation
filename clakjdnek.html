@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petals — Scroll + Tilt Demo</title>
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background:#FBF3E2;
+    overflow-x:hidden;
+    height:300vh;
+    font-family:sans-serif;
+  }
+
+  .stage{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:1;
+    pointer-events:none;
+  }
+
+  .petal{
+    position:absolute;
+    will-change:transform, opacity;
+  }
+  .petal img{
+    display:block;
+    filter:drop-shadow(0 6px 10px rgba(58,8,16,0.14));
+  }
+
+  .hint{
+    position:fixed; bottom:70px; left:50%; transform:translateX(-50%);
+    font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    color:#5A0F1D; opacity:0.55; z-index:20; text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.4s ease-out;
+  }
+  .hint.visible{ opacity:0.55; }
+
+  .progress{
+    position:fixed; top:0; left:0; height:3px; background:#5A0F1D; z-index:30; width:0%;
+  }
+
+  #debug{
+    position:fixed; top:36px; left:10px; right:10px;
+    z-index:30; font-size:10px; line-height:1.6; color:#5A0F1D;
+    background:rgba(251,243,226,0.9); border:1px solid rgba(90,15,29,0.2);
+    padding:8px 10px; border-radius:8px; opacity:0.85;
+    font-family:monospace;
+    display:none;
+  }
+
+  /* Permission overlay modal */
+  .permission-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    backdrop-filter:blur(2px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.3s ease-out;
+  }
+  .permission-overlay.visible{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .permission-modal{
+    background:white;
+    border-radius:16px;
+    padding:32px 24px;
+    max-width:320px;
+    box-shadow:0 20px 60px rgba(58,8,16,0.15);
+    text-align:center;
+    transform:translateY(20px);
+    transition:transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .permission-overlay.visible .permission-modal{
+    transform:translateY(0);
+  }
+
+  .permission-emoji{
+    font-size:32px;
+    margin-bottom:16px;
+    display:inline-block;
+    animation:float 2s ease-in-out infinite;
+  }
+
+  .permission-title{
+    font-size:18px;
+    font-weight:500;
+    color:#2C1D1D;
+    margin:0 0 12px 0;
+  }
+
+  .permission-text{
+    font-size:14px;
+    color:#5A0F1D;
+    opacity:0.7;
+    margin:0 0 24px 0;
+    line-height:1.5;
+  }
+
+  .permission-buttons{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .permission-btn{
+    padding:12px 16px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all 0.2s;
+    letter-spacing:0.5px;
+  }
+
+  .permission-btn.primary{
+    background:#A67C52;
+    color:white;
+  }
+  .permission-btn.primary:active{
+    transform:scale(0.98);
+  }
+
+  .permission-btn.secondary{
+    background:transparent;
+    color:#5A0F1D;
+    border:0.5px solid rgba(90,15,29,0.2);
+  }
+  .permission-btn.secondary:hover{
+    background:rgba(90,15,29,0.05);
+    border-color:rgba(90,15,29,0.3);
+  }
+  .permission-btn.secondary:active{
+    transform:scale(0.98);
+  }
+
+  @keyframes float{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div id="debug"></div>
+<div class="stage" id="stage"></div>
+<div class="hint">scroll ↕ &nbsp;+&nbsp; tilt phone ↔ / ↕</div>
+
+<!-- Permission overlay -->
+<div class="permission-overlay" id="permissionOverlay">
+  <div class="permission-modal">
+    <div class="permission-emoji">✨</div>
+    <h2 class="permission-title">Let the petals dance</h2>
+    <p class="permission-text">Enable motion to make the invitation respond to your tilt</p>
+    <div class="permission-buttons">
+      <button class="permission-btn primary" id="permissionGrantBtn">Enable motion</button>
+      <button class="permission-btn secondary" id="permissionDenyBtn">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const PETAL_IMAGES = [
+    "images/mypetal1.png",
+    "images/mypetal2.png",
+    "images/mypetal3.png",
+    "images/mypetal4.png",
+    "images/mypetal5.png",
+    "images/mypetal6.png",
+  ];
+
+  function seededRandom(seed){
+    let s = seed;
+    return function(){ s = (s*9301+49297) % 233280; return s/233280; };
+  }
+
+  // three depth layers: back (small, slow, subtle tilt), mid, front (big, fast, strong tilt)
+  const LAYERS = [
+    { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:6,  blur:1.5, opacityRange:[0.35,0.55] },
+    { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:14, blur:0,   opacityRange:[0.6,0.85] },
+    { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:26, blur:0,   opacityRange:[0.85,1]   },
+  ];
+
+  const stage = document.getElementById('stage');
+  const rand = seededRandom(21);
+  const allPetals = [];
+
+  LAYERS.forEach((layer, li)=>{
+    for(let i=0;i<layer.count;i++){
+      const el = document.createElement('div');
+      el.className = 'petal';
+      const size = layer.sizeMin + rand()*(layer.sizeMax-layer.sizeMin);
+      const top = rand()*280; // vh — spans the whole scrollable range
+      const left = rand()*94 + 2;
+      const rotate = rand()*360;
+      const flip = rand() > 0.5 ? -1 : 1;
+      const img = PETAL_IMAGES[Math.floor(rand()*PETAL_IMAGES.length)];
+      const opacity = layer.opacityRange[0] + rand()*(layer.opacityRange[1]-layer.opacityRange[0]);
+      const phase = rand()*Math.PI*2;
+
+      el.style.top = top + 'vh';
+      el.style.left = left + 'vw';
+      el.style.opacity = opacity.toFixed(2);
+      if(layer.blur) el.style.filter = `blur(${layer.blur}px)`;
+      el.innerHTML = `<img src="${img}" style="width:${size}px; transform:scaleX(${flip}) rotate(${rotate}deg);">`;
+      stage.appendChild(el);
+
+      allPetals.push({
+        el, baseRotate:rotate, scrollSpeed:layer.scrollSpeed,
+        tiltAmount:layer.tiltAmount, phase, flip
+      });
+    }
+  });
+
+  // ---------- scroll ----------
+  const progressBar = document.getElementById('progress');
+  let scrollY = 0;
+
+  function onScroll(){
+    scrollY = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    progressBar.style.width = (maxScroll>0 ? (scrollY/maxScroll)*100 : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  // ---------- device tilt (smoothed) ----------
+  let targetTiltX = 0, targetTiltY = 0; // normalized -1..1
+  let tiltX = 0, tiltY = 0;
+  let tiltEnabled = false;
+  let orientationEventCount = 0;
+  let lastGamma = null, lastBeta = null;
+
+  function handleOrientation(e){
+    orientationEventCount++;
+    // gamma: left-right tilt (-90..90), beta: front-back tilt (-180..180)
+    const gamma = e.gamma || 0;
+    const beta = e.beta || 0;
+    lastGamma = gamma; lastBeta = beta;
+    targetTiltX = Math.max(-1, Math.min(1, gamma / 30));
+    targetTiltY = Math.max(-1, Math.min(1, (beta - 40) / 30)); // offset ~40deg for natural holding angle
+  }
+
+  const debugEl = document.getElementById('debug');
+  const permissionOverlay = document.getElementById('permissionOverlay');
+  const permissionGrantBtn = document.getElementById('permissionGrantBtn');
+  const permissionDenyBtn = document.getElementById('permissionDenyBtn');
+  const hintEl = document.querySelector('.hint');
+
+  function enableTilt(){
+    window.addEventListener('deviceorientation', handleOrientation);
+    tiltEnabled = true;
+    permissionOverlay.classList.remove('visible');
+    hintEl.classList.add('visible');
+  }
+
+  function showPermissionPrompt(){
+    permissionOverlay.classList.add('visible');
+  }
+
+  function hidePermissionPrompt(){
+    permissionOverlay.classList.remove('visible');
+  }
+
+  // Device detection and initialization
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if(!isMobileDevice){
+    // Desktop: use mouse as fallback
+    let usingMouseFallback = false;
+    window.addEventListener('mousemove', (e)=>{
+      if(tiltEnabled) return;
+      usingMouseFallback = true;
+      targetTiltX = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetTiltY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+  } else if(isIOS){
+    // iOS: requires user gesture, show elegant permission prompt
+    showPermissionPrompt();
+    
+    permissionGrantBtn.addEventListener('click', async ()=>{
+      if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+        try {
+          const state = await DeviceOrientationEvent.requestPermission();
+          if(state === 'granted'){
+            enableTilt();
+          } else {
+            hidePermissionPrompt();
+          }
+        } catch(err){
+          hidePermissionPrompt();
+        }
+      }
+    });
+
+    permissionDenyBtn.addEventListener('click', ()=>{
+      hidePermissionPrompt();
+    });
+  } else {
+    // Android and other devices: silently try to enable
+    if('DeviceOrientationEvent' in window){
+      enableTilt();
+    }
+  }
+
+  // ---------- animation loop ----------
+  function animate(t){
+    // smooth (lerp) the tilt so it never jitters
+    tiltX += (targetTiltX - tiltX) * 0.06;
+    tiltY += (targetTiltY - tiltY) * 0.06;
+
+    allPetals.forEach(p=>{
+      const scrollOffset = -scrollY * p.scrollSpeed;
+      const tiltOffsetX = tiltX * p.tiltAmount;
+      const tiltOffsetY = tiltY * p.tiltAmount * 0.6;
+      const drift = Math.sin(t*0.0006 + p.phase) * 4;
+      const rot = p.baseRotate + tiltX * p.tiltAmount * 0.4;
+
+      p.el.style.transform =
+        `translate3d(${tiltOffsetX}px, ${scrollOffset + tiltOffsetY + drift}px, 0) rotate(${rot}deg)`;
+    });
+
+    debugEl.textContent =
+      `secure context (https): ${window.isSecureContext}\n` +
+      `location protocol: ${window.location.protocol}\n` +
+      `orientation events received: ${orientationEventCount}\n` +
+      `raw gamma/beta: ${lastGamma===null?'—':lastGamma.toFixed(1)} / ${lastBeta===null?'—':lastBeta.toFixed(1)}\n` +
+      `tiltX/tiltY (smoothed): ${tiltX.toFixed(2)} / ${tiltY.toFixed(2)}\n` +
+      `scrollY: ${Math.round(scrollY)}px`;
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+</script>
+
+</body>
+</html>
