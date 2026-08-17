@@ -188,11 +188,16 @@
   }
 
   // three depth layers: back (small, slow, subtle tilt), mid, front (big, fast, strong tilt)
+  // const LAYERS = [
+  //   { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:6,  blur:1.5, opacityRange:[0.35,0.55] },
+  //   { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:14, blur:0,   opacityRange:[0.6,0.85] },
+  //   { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:26, blur:0,   opacityRange:[0.85,1]   },
+  // ];
   const LAYERS = [
-    { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:6,  blur:1.5, opacityRange:[0.35,0.55] },
-    { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:14, blur:0,   opacityRange:[0.6,0.85] },
-    { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:26, blur:0,   opacityRange:[0.85,1]   },
-  ];
+  { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
+  { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
+  { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
+];
 
   const stage = document.getElementById('stage');
   const rand = seededRandom(21);
