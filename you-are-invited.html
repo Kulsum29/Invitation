@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walima Invitation</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Libertinus+Math&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Carattere&display=swap'); */
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+    @font-face {
+        font-family: 'NewIconFont';
+        src: url('New-Icon-Script-Exfont1157.otf') format('opentype');
+    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: sans-serif;
+  overflow-y: scroll;
+  background: white;
+}
+
+.slide-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide1 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1)); }
+.slide2 { background: linear-gradient(135deg, rgba(160, 82, 45, 0.1), rgba(120, 80, 60, 0.08)); }
+.slide3 { background: linear-gradient(135deg, rgba(51, 149, 223, 0.12), rgba(100, 150, 200, 0.08)); }
+.slide4 { background: linear-gradient(135deg, rgba(16, 158, 117, 0.1), rgba(100, 180, 150, 0.08)); }
+.slide5 { background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(200, 140, 80, 0.08)); }
+
+.content { text-align: center; }
+
+h1 { font-size: 3rem; margin: 0; letter-spacing: 0.2em; }
+h2 { font-size: 2rem; margin: 0; }
+p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
+
+/* Petal overlay */
+.stage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.petal {
+  position: absolute;
+  will-change: transform;
+}
+
+.petal img {
+  display: block;
+}
+
+/* Permission overlay */
+.permission-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.permission-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.permission-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 400px;
+}
+
+.permission-emoji {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.permission-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.permission-text {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.permission-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.permission-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.permission-btn.primary {
+  background: #8361e1;
+  color: white;
+}
+
+.permission-btn.primary:hover {
+  background: #6d4fbe;
+}
+
+.permission-btn.secondary {
+  background: #f0f0f0;
+  color: #000;
+}
+
+.permission-btn.secondary:hover {
+  background: #e0e0e0;
+}
+
+.scroll-spacer {
+  height: 500vh;
+}
+
+.scroll-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #888;
+  z-index: 50;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: #80002f;
+  width: 0%;
+  z-index: 200;
+}
+
+  .fancy{
+      font-family: "NewIconFont", cursive;
+       color:#80002f;
+      
+  }
+  .smallfancy{
+    
+    position:relative;
+    font-weight:900px;
+  }
+  .seriftext{
+    font-family: "Libertinus Math", system-ui;
+  }
+  .serifitalictext{
+     color:#80002f;
+    font-family: "Cardo", cursive;
+    font-style: italic;
+    line-height: 1.7rem;
+    position:relative;
+    top:0.5rem;
+    }
+
+  .arabicfont{
+    font-family: "Amiri", serif;
+     color:#80002f;
+    }
+    .info-box{
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+
+
+    }
+    .info-box div{
+        flex:1;
+        text-align: center;
+        animation: fade-in 2.3s ease-in-out;
+        padding: 0px 10px;
+        font-weight: 400;
+        background: linear-gradient(transparent,#80002f25, #80002f73);
+        background-size: 100% 200%;  /* Make gradient taller than element */
+        background-position: 0% 0%; 
+        border-radius: 50px 0px;
+        transition: all 1s ease;
+        padding-top:20px;
+        padding-bottom:20px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .info-box div:hover{
+        background-position: 0% 100%; 
+        transform: scale(1.01);
+    }
+     .complements-box{
+    width:auto; 
+    text-align: justify; 
+
+    margin:20px auto;
+    
+  }
+    @media screen and (max-width: 900px){
+        #bismillah{
+            width:6rem;
+        }
+        .large{
+            font-size: 1.2rem;
+        }
+        .med{
+            font-size: 1rem;
+        }
+        .small{
+            font-size:0.8rem;
+        }
+        .fancy{
+            font-size: 2rem !important;
+            line-height: 2rem;
+        }
+        .smallfancy{
+            left:1rem;
+            top:-0.3rem;
+        }
+        .info-box div{
+       
+            width:60vw;
+            flex-direction: column;
+            gap:10px; 
+        }
+        .info-box{
+            flex-direction: column;
+        }
+    }
+    @media screen and (min-width: 901px){
+        #bismillah{
+            width:10rem;
+        }
+        .large{
+            font-size: 3rem;
+        }
+        .med{
+            font-size: 2rem;
+        }
+        .small{
+            font-size:1.6rem;
+        }
+        .fancy{
+            font-size: 5rem !important;
+            line-height: 3rem;
+        }
+        .smallfancy{
+            left:2rem;
+            top:-0.5rem;
+        }
+         .info-box {
+            width: 70vw;
+            font-size: 1.7rem;
+            color:black;
+            align-items: stretch;
+            flex-direction: row;
+            gap:70px; 
+        }
+        .complements-box{
+            line-height: 3rem;
+        }
+    }
+    .corner{
+        position:fixed;width:20vw;
+        animation: fade-in 2.3s ease-in-out;
+    }
+    @keyframes fade-in{
+        0%{ opacity:0; transform:translateY(20px); }
+        100%{ opacity:1; transform:translateY(0); }
+    }
+    .animate-item {
+        opacity: 0;
+        animation: fade-in 0.6s ease-out forwards;
+    }
+
+    .animate-item.visible {
+        animation: fade-in 0.6s ease-out forwards;
+    }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="stage" id="stage"></div>
+
+<div class="permission-overlay" id="permissionOverlay">
+  <div class="permission-modal">
+    <div class="permission-emoji">✨</div>
+    <h2 class="permission-title">Enable motion</h2>
+    <p class="permission-text">This invitation uses motion detection for a beautiful experience</p>
+    <div class="permission-buttons">
+      <button class="permission-btn primary" id="permissionGrantBtn">Enable motion</button>
+      <button class="permission-btn secondary" id="permissionDenyBtn">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<img src="images/elegant-flowers1.png" alt="" class="corner" style="top:-15px;left:-15px">
+<img src="images/elegant-flowers2.png" alt="" class="corner" style="top:-15px;right:-15px">
+<img src="images/elegant-flowers4.png" alt="" class="corner" style="bottom:-15px;left:-15px">
+<img src="images/elegant-flowers3.png" alt="" class="corner" style="bottom:-15px;right:-15px">
+
+<div class="slide-container seriftext">
+  <div class="slide slide1 active">
+    <div class="content">
+      <!-- <h1>Bismillah<br>Ar-Rahman<br>Ar-Rahim</h1> -->
+        <img src="images/basmala3.png" alt="" id="bismillah">
+    </div>
+  </div>
+
+  <div class="slide slide2">
+    <div class="content med">
+      <span class="seriftext animate-item">In Loving Memory of</span><br>
+      <span class="serifitalictext large animate-item">Late Mr. Mohammed Ali Maniar</span><br>
+      <span class="arabicfont animate-item"> اللهم ارحمه</span>
+    </div>
+  </div>
+
+  <div class="slide slide3">
+    <div class="content med">
+ <span class="serifitalictext large">Mrs. Zubeda Maniar</span><br>
+      <span class="seriftext" style="display:block;margin-top: 0.5rem;">Cordially Invites You to the Walimah of Her Son</span>
+  <br><br>
+      <p class="fancy">
+     Raihan<br>
+      <span class="smallfancy small">&</span> <br>
+      Insha
+  </p>
+  <br><br>
+  <span class="seriftext">Daughter of</span> <br>
+      <span class="serifitalictext large">Mr. Muhammad Ali Durwesh & Mrs. Shaheen Durwesh</span>
+  
+    </div>
+  </div>
+
+  <div class="slide slide4">
+    <div class="content med">
+      <!-- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 600px; margin: 0 auto;">
+        <div style="background: white; padding: 2rem; border-radius: 8px; border: 1px solid #ddd;">
+          <p style="font-size: 0.9rem; color: #888;">📅 DATE</p>
+          <p style="font-size: 1.2rem; font-weight: bold; color: #000;">[Date]<br>[Day]</p>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 8px; border: 1px solid #ddd;">
+          <p style="font-size: 0.9rem; color: #888;">🕐 TIME</p>
+          <p style="font-size: 1.2rem; font-weight: bold; color: #000;">[Start]<br>[End]</p>
+        </div>
+        <div style="background: white; padding: 2rem; border-radius: 8px; border: 1px solid #ddd;">
+          <p style="font-size: 0.9rem; color: #888;">📍 VENUE</p>
+          <p style="font-size: 1.2rem; font-weight: bold; color: #000;">[Venue]<br>[Address]</p>
+        </div>
+      </div> -->
+   <section> <span class="arabicfont large">إن شاء الله تعالى</span></section>
+    <br>
+    <div class= "info-box">
+        <div>
+          <!-- Icons made by Pixel perfect from www.flaticon.com -->
+         <img src="images/wall-clock.png" alt="" width="30">
+          <!-- <i class="fa-regular fa-calendar"></i> -->
+
+          On Tuesday
+          <span>27<sup>th</sup> October 2026<br></span>
+        </div>
+        <div>
+          <img src="images/table.png" alt="" width="30">
+          <!-- <i class="fa-solid fa-utensils"></i> -->
+
+          With Dinner<br>
+          After Maghrib
+        </div>
+        <div>
+           <img src="images/wedding-car.png" alt="" width="30">
+          <!-- <i class="fa-solid fa-location-dot"></i> -->
+
+          At the Islamic Cultural Hall<br>
+          Mota Taiwad, Valsad 396 001
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="slide slide5">
+    <div class="content med">
+      <!-- <h2>Best compliments from</h2>
+      <p>[Name 1]</p>
+      <p>[Name 2]</p>
+      <p>[Name 3]</p>
+      <p>[Name 4]</p>
+      <p style="margin-top: 2rem; font-style: italic;">Dua for your happiness</p> -->
+        <section class="serifitalictext large">
+            With Best Compliments from:
+        </section>
+
+        <section class="complements-box">
+            Mrs. Habiba Gulam Mohammed Maniar <br>
+            Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
+            Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
+            Ms. Kulsum Maniar
+        </section>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-spacer"></div>
+<div class="scroll-hint">↓ Scroll to navigate ↓</div>
+
+<script>
+    const observerOptions = { threshold: 0.3 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.animate-item').forEach(item => {
+  observer.observe(item);
+});
+const PETAL_IMAGES = [
+  "images/mypetal1.png",
+  "images/mypetal2.png",
+  "images/mypetal3.png",
+  "images/mypetal4.png",
+  "images/mypetal5.png",
+  "images/mypetal6.png",
+];
+
+function seededRandom(seed){
+  let s = seed;
+  return function(){ s = (s*9301+49297) % 233280; return s/233280; };
+}
+
+const LAYERS = [
+  { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
+  { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
+  { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
+];
+
+const stage = document.getElementById('stage');
+const rand = seededRandom(21);
+const allPetals = [];
+
+LAYERS.forEach((layer)=>{
+  for(let i=0;i<layer.count;i++){
+    const el = document.createElement('div');
+    el.className = 'petal';
+    const size = layer.sizeMin + rand()*(layer.sizeMax-layer.sizeMin);
+    const top = rand()*100;
+    const left = rand()*100;
+    const rotate = rand()*360;
+    const flip = rand() > 0.5 ? -1 : 1;
+    const img = PETAL_IMAGES[Math.floor(rand()*PETAL_IMAGES.length)];
+    const opacity = layer.opacityRange[0] + rand()*(layer.opacityRange[1]-layer.opacityRange[0]);
+    const phase = rand()*Math.PI*2;
+
+    el.style.top = top + 'vh';
+    el.style.left = left + 'vw';
+    el.style.opacity = opacity.toFixed(2);
+    if(layer.blur) el.style.filter = `blur(${layer.blur}px)`;
+    el.innerHTML = `<img src="${img}" style="width:${size}px; transform:scaleX(${flip}) rotate(${rotate}deg);">`;
+    stage.appendChild(el);
+
+    allPetals.push({
+      el, baseRotate:rotate, scrollSpeed:layer.scrollSpeed,
+      tiltAmount:layer.tiltAmount, phase, flip
+    });
+  }
+});
+
+const progressBar = document.getElementById('progress');
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+const permissionOverlay = document.getElementById('permissionOverlay');
+const permissionGrantBtn = document.getElementById('permissionGrantBtn');
+const permissionDenyBtn = document.getElementById('permissionDenyBtn');
+
+let scrollY = 0;
+let targetTiltX = 0, targetTiltY = 0;
+let tiltX = 0, tiltY = 0;
+let tiltEnabled = false;
+
+function onScroll(){
+  scrollY = window.scrollY;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (maxScroll>0 ? (scrollY/maxScroll)*100 : 0) + '%';
+
+  const scrollPercent = window.scrollY / maxScroll;
+  const slideIndex = Math.round(scrollPercent * (totalSlides - 1));
+  
+  slides.forEach(slide => slide.classList.remove('active'));
+  slides[Math.min(slideIndex, totalSlides - 1)].classList.add('active');
+}
+
+function handleOrientation(e){
+  const gamma = e.gamma || 0;
+  const beta = e.beta || 0;
+  targetTiltX = Math.max(-1, Math.min(1, gamma / 30));
+  targetTiltY = Math.max(-1, Math.min(1, (beta - 40) / 30));
+}
+
+function enableTilt(){
+  window.addEventListener('deviceorientation', handleOrientation);
+  tiltEnabled = true;
+  permissionOverlay.classList.remove('visible');
+}
+
+function showPermissionPrompt(){
+  permissionOverlay.classList.add('visible');
+}
+
+function hidePermissionPrompt(){
+  permissionOverlay.classList.remove('visible');
+}
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+window.addEventListener('scroll', onScroll, { passive:true });
+onScroll();
+
+if(!isMobileDevice){
+  window.addEventListener('mousemove', (e)=>{
+    targetTiltX = (e.clientX / window.innerWidth - 0.5) * 2;
+    targetTiltY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+} else if(isIOS){
+  showPermissionPrompt();
+  
+  permissionGrantBtn.addEventListener('click', async ()=>{
+    if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      try {
+        const state = await DeviceOrientationEvent.requestPermission();
+        if(state === 'granted'){
+          enableTilt();
+        } else {
+          hidePermissionPrompt();
+        }
+      } catch(err){
+        hidePermissionPrompt();
+      }
+    }
+  });
+
+  permissionDenyBtn.addEventListener('click', ()=>{
+    hidePermissionPrompt();
+  });
+} else {
+  if('DeviceOrientationEvent' in window){
+    enableTilt();
+  }
+}
+
+function animate(t){
+  tiltX += (targetTiltX - tiltX) * 0.06;
+  tiltY += (targetTiltY - tiltY) * 0.06;
+
+  allPetals.forEach(p=>{
+    const scrollOffset = -scrollY * p.scrollSpeed;
+    const tiltOffsetX = tiltX * p.tiltAmount;
+    const tiltOffsetY = tiltY * p.tiltAmount * 0.6;
+    const drift = Math.sin(t*0.0006 + p.phase) * 4;
+    const rot = p.baseRotate + tiltX * p.tiltAmount * 0.4;
+
+    p.el.style.transform =
+      `translate3d(${tiltOffsetX}px, ${scrollOffset + tiltOffsetY + drift}px, 0) rotate(${rot}deg)`;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
+</script>
+
+</body>
+</html>
