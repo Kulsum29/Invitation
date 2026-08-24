@@ -77,6 +77,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
 
 .petal img {
   display: block;
+  filter: hue-rotate(12deg);
 }
 
 /* Permission overlay */
@@ -239,8 +240,8 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         transform: scale(1.01);
     }
      .complements-box{
-    width:auto; 
-    text-align: justify; 
+    width:50vw; 
+    text-align: center; 
 
     margin:20px auto;
     
@@ -282,10 +283,22 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         .corner{
            position:fixed;width:50vw;
         }
+        .slide-container{
+          background: url(images/soft\ wallpaper.jpg);
+           background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
     }
     @media screen and (min-width: 901px){
         #bismillah{
             width:10rem;
+        }
+        .slide-container{
+          background: url(images/soft\ wallpaper2.png);
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
         }
         .large{
             font-size: 3rem;
@@ -349,11 +362,15 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
   </div>
 </div>
 
-<img src="images/elegant-flowers1.png" alt="" class="corner" style="top:-15px;left:-15px">
+<!-- <img src="images/elegant-flowers1.png" alt="" class="corner" style="top:-15px;left:-15px">
 <img src="images/elegant-flowers2.png" alt="" class="corner" style="top:-15px;right:-15px">
 <img src="images/elegant-flowers4.png" alt="" class="corner" style="bottom:-15px;left:-15px">
-<img src="images/elegant-flowers3.png" alt="" class="corner" style="bottom:-15px;right:-15px">
-
+<img src="images/elegant-flowers3.png" alt="" class="corner" style="bottom:-15px;right:-15px"> -->
+<!-- <img src="images/soft wallpaper.jpg" alt="" style="position:fixed;z-index: -1;top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;"> -->
 <div class="slide-container seriftext">
   <div class="slide slide1 active">
     <div class="content">
@@ -444,7 +461,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
             With Best Compliments from:
         </section>
 
-        <section class="complements-box">
+        <section class="complements-box small">
             Mrs. Habiba Gulam Mohammed Maniar <br>
             Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
             Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
