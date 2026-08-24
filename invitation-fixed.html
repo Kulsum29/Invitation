@@ -23,7 +23,7 @@
     
     overflow-x:hidden;
     font-family:sans-serif;
-    color:#80002f
+    color:black
   }
 
   .stage{
@@ -163,12 +163,12 @@
     flex-direction:column;
     align-items:center;
     justify-content:flex-start;
-    padding:40px 20px;
+  
     user-select: none;
   }
 
   #bismillah{
-    width:10rem;
+  
     animation:fade-in 2.3s ease-in-out;
   }
 
@@ -185,7 +185,7 @@
   }
   .fancy{
       font-family: "NewIconFont", cursive;
-      
+       color:#80002f;
       
   }
   .smallfancy{
@@ -197,15 +197,17 @@
     font-family: "Libertinus Math", system-ui;
   }
   .serifitalictext{
+     color:#80002f;
     font-family: "Cardo", cursive;
     font-style: italic;
-    line-height: 2.5rem;
+    line-height: 1.7rem;
     position:relative;
     top:0.5rem;
   }
 
   .arabicfont{
-    font-family: "Amiri", serif;;
+    font-family: "Amiri", serif;
+     color:#80002f;
   }
 
   .complements-box{
@@ -223,23 +225,40 @@
    
   }
  .info-box div{
-  text-align: center;
-    animation: fade-in 2.3s ease-in-out;
-    padding: 0px 10px;
-    font-weight: 400;
- }
+      flex:1;
+      text-align: center;
+      animation: fade-in 2.3s ease-in-out;
+      padding: 0px 10px;
+      font-weight: 400;
+      background: linear-gradient(transparent,#80002f25, #80002f73);
+      background-size: 100% 200%;  /* Make gradient taller than element */
+      background-position: 0% 0%; 
+      border-radius: 50px 0px;
+      transition: all 1s ease;
+              padding-top:20px;
+        padding-bottom:20px;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+         .info-box div:hover{
+            background-position: 0% 100%; 
+            transform: scale(1.01);
+        }
   @media screen and (max-width: 900px){
         .large{
-      font-size: 2rem;
+      font-size: 1.2rem;
         }
         .med{
-        font-size: 1.5rem;
+        font-size: 1rem;
         }
         .small{
-      font-size:1rem;
+      font-size:0.8rem;
         }
          .fancy{
-          font-size: 3rem !important;
+          font-size: 2rem !important;
           line-height: 2rem;
         }
         .smallfancy{
@@ -251,16 +270,28 @@
               gap:10px; 
         }
          .info-box div{
-        border: 2px solid #80002f;
-        width:70vw;
-        padding-top:20px;
-        padding-bottom:20px;
+       
+        width:60vw;
+
         }
+
         .content-section section{
           margin-top: 30px;
         }
+        .content-section{
+            padding:10px 120px;
+        }
+        #bismillah{
+            width:6rem;
+        }
   }
     @media screen and (min-width: 901px){
+      .content-section{
+          padding:40px 20px;
+      }
+      #bismillah{
+          width:10rem;
+      }
       .large{
       font-size: 3rem;
         }
@@ -288,6 +319,19 @@
         .complements-box{
           line-height: 3rem;
         }
+        .info-box {
+                  width: 70vw;
+        font-size: 1.7rem;
+        color:black;
+        align-items: stretch;
+
+        }
+     
+        
+  }
+  .corner{
+    position:absolute;width:45vw;
+    animation: fade-in 2.3s ease-in-out;
   }
 </style>
 </head>
@@ -303,8 +347,11 @@
 <div class="content-section seriftext med">
   <img src="images/basmala3.png" alt="" id="bismillah">
   <!-- Add your content here -->
-
-
+   <!-- floral clipart PNG Designed By  from https://pngtree.com/freepng/elegant-floral-corner-arrangement-with-pink-roses-and-white-lilies_23361731.html?sol=downref&id=bef -->
+<img src="images/elegant-flowers1.png" alt="" class="corner" style="top:-15px;left:-15px">
+<img src="images/elegant-flowers2.png" alt="" class="corner" style="top:-15px;right:-15px">
+<img src="images/elegant-flowers4.png" alt="" class="corner" style="bottom:-55px;left:-15px">
+<img src="images/elegant-flowers3.png" alt="" class="corner" style="bottom:-55px;right:-15px">
     <section>
 
       <span class="seriftext">In Loving Memory of</span><br>
@@ -328,17 +375,24 @@
     <br>
     <div class= "info-box">
         <div>
-         <i class="fa-regular fa-calendar"></i><br>
+          <!-- Icons made by Pixel perfect from www.flaticon.com -->
+         <img src="images/wall-clock.png" alt="" width="30">
+          <!-- <i class="fa-regular fa-calendar"></i> -->
+
           Tuesday<br>
           <span>27<sup>th</sup> October 2026<br></span>
         </div>
         <div>
-          <i class="fa-solid fa-utensils"></i><br>
+          <img src="images/table.png" alt="" width="30">
+          <!-- <i class="fa-solid fa-utensils"></i> -->
+
           Dinner<br>
           After Maghrib
         </div>
         <div>
-          <i class="fa-solid fa-location-dot"></i><br>
+           <img src="images/wedding-car.png" alt="" width="30">
+          <!-- <i class="fa-solid fa-location-dot"></i> -->
+
           Islamic Cultural Hall<br>
           Mota Taiwad, Valsad 396 001
         </div>
