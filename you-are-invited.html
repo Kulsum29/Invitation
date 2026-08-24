@@ -245,7 +245,11 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
     margin:20px auto;
     
   }
-    @media screen and (max-width: 900px){
+   .corner{
+        position:fixed;width:45vh;
+        animation: fade-in 2.3s ease-in-out;
+    }
+    @media screen and (max-width: 900px) and (orientation: portrait){
         #bismillah{
             width:6rem;
         }
@@ -276,7 +280,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
             flex-direction: column;
         }
         .corner{
-           position:fixed;width:45vh;
+           position:fixed;width:50vw;
         }
     }
     @media screen and (min-width: 901px){
@@ -312,10 +316,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
             line-height: 3rem;
         }
     }
-    .corner{
-        position:fixed;width:45vh;
-        animation: fade-in 2.3s ease-in-out;
-    }
+   
     @keyframes fade-in{
         0%{ opacity:0; transform:translateY(20px); }
         100%{ opacity:1; transform:translateY(0); }
