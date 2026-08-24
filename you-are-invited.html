@@ -77,7 +77,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
 
 .petal img {
   display: block;
-  filter: hue-rotate(12deg);
+  filter: brightness(145%) hue-rotate(30deg);
 }
 
 /* Permission overlay */
@@ -213,8 +213,6 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         display: flex;
         justify-content: center; 
         align-items: center; 
-
-
     }
     .info-box div{
         flex:1;
@@ -222,23 +220,23 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         animation: fade-in 2.3s ease-in-out;
         padding: 0px 10px;
         font-weight: 400;
-        background: linear-gradient(transparent,#80002f25, #80002f73);
-        background-size: 100% 200%;  /* Make gradient taller than element */
-        background-position: 0% 0%; 
+        background: linear-gradient(transparent,white);
+        /* background-size: 100% 200%;  /* Make gradient taller than element 
+        background-position: 0% 0%;  */
         border-radius: 50px 0px;
         transition: all 1s ease;
         padding-top:20px;
         padding-bottom:20px;
-
+        
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: center;height: 12rem;
     }
-    .info-box div:hover{
+    /* .info-box div:hover{
         background-position: 0% 100%; 
         transform: scale(1.01);
-    }
+    } */
      .complements-box{
     width:50vw; 
     text-align: center; 
@@ -250,6 +248,12 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         position:fixed;width:45vh;
         animation: fade-in 2.3s ease-in-out;
     }
+    .slide-container{
+          background: url(images/soft\ wallpaper2.png);
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
     @media screen and (max-width: 900px) and (orientation: portrait){
         #bismillah{
             width:6rem;
@@ -275,7 +279,8 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
        
             width:60vw;
             flex-direction: column;
-            gap:10px; 
+            gap:25px; 
+            height:12rem;
         }
         .info-box{
             flex-direction: column;
@@ -290,7 +295,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
           background-repeat: no-repeat;
         }
     }
-    @media screen and (min-width: 901px){
+    @media screen and (min-width: 900px){
         #bismillah{
             width:10rem;
         }
@@ -342,6 +347,16 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
     .animate-item.visible {
         animation: fade-in 0.6s ease-out forwards;
     }
+    /* @keyframes vanish {
+      20%{ opacity:0.2; transform:scale(0.7); }
+      50%{ opacity:0; transform:scale(0); }
+      80%{opacity:0.8; transform:scale(0.7);}
+      100%{opacity: 1;transform: scale(1);}
+    }
+    .petal:hover{
+
+      animation: vanish 1s ease-in-out;
+    } */
 </style>
 </head>
 <body>
@@ -429,7 +444,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
           <!-- <i class="fa-regular fa-calendar"></i> -->
 
           On Tuesday
-          <span>27<sup>th</sup> October 2026<br></span>
+          <br>27 October 2026
         </div>
         <div>
           <img src="images/table.png" alt="" width="30">
@@ -442,7 +457,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
            <img src="images/wedding-car.png" alt="" width="30">
           <!-- <i class="fa-solid fa-location-dot"></i> -->
 
-          At the Islamic Cultural Hall<br>
+          Islamic Cultural Hall<br>
           Mota Taiwad, Valsad 396 001
         </div>
     </div>
@@ -500,11 +515,11 @@ function seededRandom(seed){
   let s = seed;
   return function(){ s = (s*9301+49297) % 233280; return s/233280; };
 }
-
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const LAYERS = [
-  { count:10, sizeMin:22, sizeMax:34, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
-  { count:9,  sizeMin:34, sizeMax:52, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
-  { count:6,  sizeMin:52, sizeMax:78, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
+  { count:10, sizeMin:22, sizeMax:20, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
+  { count:10,  sizeMin:34, sizeMax:34, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
+  { count:10,  sizeMin:52, sizeMax:isMobileDevice ? 43 : 52, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
 ];
 
 const stage = document.getElementById('stage');
@@ -516,7 +531,7 @@ LAYERS.forEach((layer)=>{
     const el = document.createElement('div');
     el.className = 'petal';
     const size = layer.sizeMin + rand()*(layer.sizeMax-layer.sizeMin);
-    const top = rand()*100;
+    const top = rand()*500;
     const left = rand()*100;
     const rotate = rand()*360;
     const flip = rand() > 0.5 ? -1 : 1;
@@ -584,7 +599,7 @@ function hidePermissionPrompt(){
 }
 
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+// isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 window.addEventListener('scroll', onScroll, { passive:true });
 onScroll();
