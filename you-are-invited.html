@@ -215,12 +215,13 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         align-items: center; 
     }
     .info-box div{
+      position: relative;
         flex:1;
         text-align: center;
         animation: fade-in 2.3s ease-in-out;
         padding: 0px 10px;
         font-weight: 400;
-        background: linear-gradient(transparent,white);
+        background: linear-gradient(to top,transparent,#fdf7f087, transparent);
         /* background-size: 100% 200%;  /* Make gradient taller than element 
         background-position: 0% 0%;  */
         border-radius: 50px 0px;
@@ -232,6 +233,18 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         flex-direction: column;
         justify-content: center;
         align-items: center;height: 12rem;
+    }
+    .info-box div .top-border{
+      position:absolute;
+      top: -20px;
+      left:50%;
+      transform: translateX(-50%);
+    }
+    .info-box div .bottom-border{
+      position:absolute;
+      bottom: -20px;
+      left:50%;
+      transform: translateX(-50%);
     }
     /* .info-box div:hover{
         background-position: 0% 100%; 
@@ -414,7 +427,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
   </p>
   <br><br>
   <span class="seriftext">Daughter of</span> <br>
-      <span class="serifitalictext large">Mr. Muhammad Ali Durwesh & Mrs. Shaheen Durwesh</span>
+      <span class="serifitalictext large">Mr. Muhammad Ali & Mrs. Shaheen Durwesh</span>
   
     </div>
   </div>
@@ -435,30 +448,36 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
           <p style="font-size: 1.2rem; font-weight: bold; color: #000;">[Venue]<br>[Address]</p>
         </div>
       </div> -->
-   <section> <span class="arabicfont large">إن شاء الله تعالى</span></section>
+   <section>
+    
+     <span class="arabicfont large">إن شاء الله تعالى</span>
+    </section>
     <br>
     <div class= "info-box">
         <div>
           <!-- Icons made by Pixel perfect from www.flaticon.com -->
-         <img src="images/wall-clock.png" alt="" width="30">
+         <img class="top-border" src="images/border2.png" alt="" width="230">
           <!-- <i class="fa-regular fa-calendar"></i> -->
-
+          DATE<br>
           On Tuesday
           <br>27 October 2026
+          <img class ="bottom-border" src="images/border3.png" alt="" width="230">
         </div>
         <div>
-          <img src="images/table.png" alt="" width="30">
+          <img class="top-border" src="images/border2.png" alt="" width="230">
           <!-- <i class="fa-solid fa-utensils"></i> -->
-
-          With Dinner<br>
+          TIME<br>
+          Dinner<br>
           After Maghrib
+          <img class ="bottom-border" src="images/border3.png" alt="" width="230">
         </div>
         <div>
-           <img src="images/wedding-car.png" alt="" width="30">
+           <img class="top-border" src="images/border2.png" alt="" width="230">
           <!-- <i class="fa-solid fa-location-dot"></i> -->
-
+          VENUE<br>
           Islamic Cultural Hall<br>
-          Mota Taiwad, Valsad 396 001
+          Mota Taiwad, Valsad
+          <img class ="bottom-border" src="images/border3.png" alt="" width="230">
         </div>
     </div>
     </div>
@@ -477,9 +496,10 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
         </section>
 
         <section class="complements-box small">
-            Mrs. Habiba Gulam Mohammed Maniar <br>
-            Mr. Sufiyan Patrawala & Mrs. Zohra Patrawala, <br>
-            Mr. Mohammed Qasim Maniar & Mrs. Farhana Maniar <br>
+            Mr. Abdul Cadir Maniar<br>
+            Mrs. Habiba Gulam Mohamad Maniar <br>
+            Mr. Sufiyan & Mrs. Zohra Patrawala, <br>
+            Mr. MohammedQasim & Mrs. Farhana Maniar <br>
             Ms. Kulsum Maniar
         </section>
     </div>
