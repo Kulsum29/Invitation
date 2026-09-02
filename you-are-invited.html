@@ -27,7 +27,17 @@ body {
   overflow-y: scroll;
   background: white;
 }
-
+@keyframes hide-away {
+  0%{
+    opacity:100%;
+  }
+  50%{
+    opacity:0%;
+  }
+  100%{
+    opacity: 100%;
+  }
+}
 .slide-container {
   position: fixed;
   top: 0;
@@ -54,7 +64,7 @@ body {
 
 .slide1 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1)); }
 .slide2 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1));  }
-.slide3 { background: linear-gradient(135deg, rgba(51, 149, 223, 0.12), rgba(100, 150, 200, 0.08)); }
+.slide3 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1));}
 .slide4 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1));  }
 .slide5 { background: linear-gradient(135deg, rgba(131, 97, 225, 0.15), rgba(167, 107, 207, 0.1));  }
 
@@ -72,7 +82,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 5;
+  z-index: 7;
 }
 
 .petal {
@@ -167,15 +177,29 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
 .scroll-spacer {
   height: 500vh;
 }
-
+@keyframes fade-away {
+  0%{
+    opacity:0%;
+  }
+  50%{
+    opacity:100%
+  }
+  100%{
+    opacity:0%
+  }
+}
 .scroll-hint {
+  opacity:0%;
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.8rem;
-  color: #888;
+  color: #fff;
   z-index: 50;
+  font-family: "Libertinus Math";
+  text-shadow: 0px 0px 4px rgb(0, 0, 0);
+  animation: fade-away 5s linear 2s 3;
 }
 
 .progress-bar {
@@ -186,6 +210,17 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
   background: #80002f;
   width: 0%;
   z-index: 200;
+}
+.flex{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(255, 255, 255, 0.571),transparent,rgba(255, 255, 255, 0.571));
+  background-size: 300vh;
+  padding:30px;
+  width:70vw;
+  height:100vh;
 }
 
   .fancy{
@@ -274,6 +309,27 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
           background-size: cover;
           background-repeat: no-repeat;
         }
+      @media screen and (max-width: 900px) and (orientation: landscape){
+        #bismillah{
+            width:5rem;
+        }
+           .info-box div{
+       
+            width:30vw;
+            flex-direction: column;
+            gap:25px; 
+            height:9rem;
+            margin-bottom: 3rem;
+            margin-bottom: 0px;
+        }
+        .info-box{
+          gap:1rem;
+          margin:auto;
+          height:100vh;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     @media screen and (max-width: 900px) and (orientation: portrait){
         #bismillah{
             width:6rem;
@@ -428,7 +484,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
   </div>
 
   <div class="slide slide3">
-    <div class="content med">
+    <div class="content med flex">
  <span class="serifitalictext large">Mrs. Zubeda Maniar</span><br>
       <span class="seriftext" style="display:block;margin-top: 0.5rem;">Cordially Invites You to the Walimah of Her Son</span>
   <br><br>
@@ -438,7 +494,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
       Insha
   </p>
   <br><br>
-  <span class="seriftext">Daughter of</span> <br>
+  <span class="seriftext">Daughter<br>of</span> <br>
       <span class="serifitalictext large">Mr. Muhammad Ali & Mrs. Shaheen Durwesh</span>
   
     </div>
@@ -521,7 +577,7 @@ p { font-size: 1.1rem; margin: 0.5rem 0; color: #666; }
 </div>
 
 <div class="scroll-spacer"></div>
-<div class="scroll-hint">↓ Scroll to navigate ↓</div>
+<div class="scroll-hint">Scroll Down!</div>
 
 <script>
     const observerOptions = { threshold: 0.3 };
@@ -551,9 +607,9 @@ function seededRandom(seed){
 }
 const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const LAYERS = [
-  { count:10, sizeMin:22, sizeMax:20, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
-  { count:10,  sizeMin:34, sizeMax:34, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
-  { count:10,  sizeMin:52, sizeMax:isMobileDevice ? 43 : 52, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
+  { count:10, sizeMin:22, sizeMax:23, scrollSpeed:0.12, tiltAmount:10,  blur:1.5, opacityRange:[0.35,0.55] },
+  { count:10,  sizeMin:34, sizeMax:37, scrollSpeed:0.28, tiltAmount:22, blur:0,   opacityRange:[0.6,0.85] },
+  { count:10,  sizeMin:40, sizeMax:isMobileDevice ? 43 : 52, scrollSpeed:0.48, tiltAmount:40, blur:0,   opacityRange:[0.85,1]   },
 ];
 
 const stage = document.getElementById('stage');
@@ -583,6 +639,11 @@ LAYERS.forEach((layer)=>{
     allPetals.push({
       el, baseRotate:rotate, scrollSpeed:layer.scrollSpeed,
       tiltAmount:layer.tiltAmount, phase, flip
+    });
+    allPetals.forEach((petal) => {
+      petal.el.addEventListener('click', () => {
+        petal.el.style.animation = 'hide-away 0.6s ease-in-out';
+      });
     });
   }
 });
